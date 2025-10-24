@@ -1,11 +1,16 @@
+disks:
+  - name: evolution-data
+
 services:
   - type: web
     name: evolution-api
     env: docker
     repo: https://github.com/AlexandreD-Martins/evolution-api
-    disks:
-      - name: evolution-data
-        mountPath: /app/dist/instances
+    
+    disk:
+      name: evolution-data
+      mountPath: /app/dist/instances
+      
     envVars:
       - key: API_KEY
         value: "010101"
