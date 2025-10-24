@@ -1,41 +1,23 @@
-
 services:
-
   - type: web
     name: evolution-api
-    env: docker 
-    
-
+    env: docker
     repo: https://github.com/AlexandreD-Martins/evolution-api
-    
-
     disks:
       - name: evolution-data
-
         mountPath: /app/dist/instances
-        
-
     envVars:
-
       - key: API_KEY
-
         value: "010101"
-      
       - key: AUTHENTICATION_TYPE
         value: "api-key"
-
       - key: URL_INSTANCE
-
         fromService:
           type: web
           name: evolution-api
           property: url
-      
       - key: DATABASE_TYPE
         value: "sqlite"
-      
-
       - key: SERVER_HEALTH_CHECK_PATH
         value: "/health"
-        
-    healthCheckPath: /health 
+    healthCheckPath: /health
