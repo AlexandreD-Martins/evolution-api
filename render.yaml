@@ -1,51 +1,41 @@
-# render.yaml
+
 services:
-  # Este é o serviço principal, a API
+
   - type: web
     name: evolution-api
-    env: docker # Diz ao Render para usar o Dockerfile do repositório
+    env: docker 
     
-    # URL do SEU fork
+
     repo: https://github.com/AlexandreD-Martins/evolution-api
     
-    # O Render detectará automaticamente o Dockerfile na raiz
-    
-    # Precisamos de um Disco Persistente
-    # Isso é CRÍTICO para salvar sua sessão do WhatsApp (o login/QR code)
-    # e o banco de dados SQLite entre reinicializações.
-    # O plano gratuito do Render oferece um disco persistente.
+
     disks:
       - name: evolution-data
-        # O mountPath é onde a Evolution salva os dados
+
         mountPath: /app/dist/instances
         
-    # Variáveis de Ambiente Essenciais
+
     envVars:
-      # --- Configuração básica da Evolution ---
+
       - key: API_KEY
-        # Gere uma chave (senha) forte e coloque aqui
+
         value: "010101"
       
       - key: AUTHENTICATION_TYPE
         value: "api-key"
-      
-      # --- Configuração do Servidor ---
-      # Informa à API qual é o seu endereço público
+
       - key: URL_INSTANCE
-        # O Render cria a URL para você.
-        # Nós usamos uma variável injetada pelo próprio Render.
+
         fromService:
           type: web
           name: evolution-api
           property: url
       
-      # --- Configuração do Banco de Dados ---
-      # Vamos usar SQLite para o MVP, que será salvo no disco persistente
       - key: DATABASE_TYPE
         value: "sqlite"
       
-      # --- Configurações de Saúde (para o Render saber se o app está vivo) ---
+
       - key: SERVER_HEALTH_CHECK_PATH
         value: "/health"
         
-    healthCheckPath: /health # O Render usa isso para monitorar
+    healthCheckPath: /health 
