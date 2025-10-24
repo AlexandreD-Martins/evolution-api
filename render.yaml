@@ -1,5 +1,6 @@
 disks:
   - name: evolution-data
+    sizeGB: 1
 
 services:
   - type: web
