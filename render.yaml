@@ -1,0 +1,29 @@
+services:
+  - type: web
+    name: evolution-api
+    env: docker
+    repo: https://github.com/AlexandreD-Martins/evolution-api
+    
+    disk:
+      name: evolution-data
+      mountPath: /app/dist/instances
+      sizeGB: 1
+      
+    envVars:
+      - key: API_KEY
+        value: "010101" # Lembre-se de alterar no Dashboard
+      - key: AUTHENTICATION_TYPE
+        value: "api-key"
+        
+      # --- CORREÇÃO AQUI ---
+      - key: URL_INSTANCE
+        # Usamos a variável de ambiente que o próprio Render fornece
+        value: $RENDER_EXTERNAL_URL
+      # --- FIM DA CORREÇÃO ---
+        
+      - key: DATABASE_TYPE
+        value: "sqlite"
+      - key: SERVER_HEALTH_CHECK_PATH
+        value: "/health"
+        
+    healthCheckPath: /health
