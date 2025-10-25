@@ -1,15 +1,14 @@
-disks:
-  - name: evolution-data
-    sizeGB: 1
-
 services:
   - type: web
     name: evolution-api
     env: docker
     repo: https://github.com/AlexandreD-Martins/evolution-api
+    
     disk:
       name: evolution-data
       mountPath: /app/dist/instances
+      sizeGB: 1 
+      
     envVars:
       - key: API_KEY
         value: "010101"
@@ -24,4 +23,5 @@ services:
         value: "sqlite"
       - key: SERVER_HEALTH_CHECK_PATH
         value: "/health"
+        
     healthCheckPath: /health
